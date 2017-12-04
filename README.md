@@ -1,2 +1,3 @@
-# Node_App
-Node_App
+# Node Mini App
+
+Node practice code snippets.
