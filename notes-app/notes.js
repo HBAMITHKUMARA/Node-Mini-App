@@ -26,37 +26,37 @@ var addNote = (title, body) => {
     if(duplicateNotes.length === 0){
         notes.push(note);
         saveNotes(notes);
+        return note;
     }
 };
 
 var getAll = () => {
-    console.log('Get all notes');
-    console.log(fetchNotes());
+    return fetchNotes();
 };
 
 var getNote = (title) => {
-  console.log('Reading note: ' + title);
   notes = fetchNotes();
-  note = notes.filter((note) => {
-   if(note.title === title){
-       return note;
-   }
-  });
-  console.log(note);
+  note = notes.filter((note) => note.title === title);
+  return note[0];
 };
 
 var removeNote = (title) => {
     var notes = fetchNotes();
     var filteredNotes = notes.filter((note) => note.title !== title);
     saveNotes(filteredNotes);
-
     return notes.length !== filteredNotes.length;
 };
 
+var logNote = (note) => {
+    console.log(`Title: ${note.title}`);
+    console.log(`Body: ${note.body}`);
+}
+
 module.exports = {
-    addNote: addNote,
-    getAll: getAll,
-    getNote: getNote,
-    removeNote: removeNote
+    addNote,
+    getAll,
+    getNote,
+    removeNote,
+    logNote
 };
 
