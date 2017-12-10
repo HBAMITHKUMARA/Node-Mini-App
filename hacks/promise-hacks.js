@@ -18,6 +18,7 @@ p.then((responseMessage) => {
 
 
 
+
 // example - 2
 var asyncAdd = (a, b) => {
     return new Promise((resolve, reject) => {
@@ -53,3 +54,34 @@ asyncAdd(2, '6').then((responseMessage) => {
 
 
 // example - 3
+// asyncAdd(2, '3').then((responseMessage) => {
+asyncAdd(2, 3).then((responseMessage) => {
+        console.log('Success:   promise chaining');
+        return asyncAdd(responseMessage, 3);
+    },
+    (errorMessage) => {
+        console.log('Error: ' + errorMessage);
+    }
+).then((responseMessage) => {
+        console.log('Success:   ' + responseMessage);
+    },
+    (errorMessage) => {
+        console.log('Error: ' + errorMessage);
+    }
+);
+
+
+
+
+// example - 4
+asyncAdd(2, '3').then((responseMessage) => {
+// asyncAdd(6, 3).then((responseMessage) => {
+        console.log('Success:   promise chaining');
+        return asyncAdd(responseMessage, 3);
+    }
+).then((responseMessage) => {
+        console.log('Success:   ' + responseMessage);
+    }
+).catch((errorMessage) => {
+    console.log('Error: ' + errorMessage);
+});
