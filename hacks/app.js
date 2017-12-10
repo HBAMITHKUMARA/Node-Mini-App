@@ -13,3 +13,5 @@ console.log('Starting app...');
 // const json_stringify_hacks = require('./json-stringify-hacks');
 
 // const request_hacks = require('./request-hacks');
+
+const promise_hacks = require('./promise-hacks');
