@@ -1,9 +1,9 @@
 console.log('Starting app...');
 
-const request = require('request');
 const yargs = require('yargs');
 
-// var callback = require('./callbacks');
+const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather');
 
 const argv = yargs
     .options({
@@ -20,30 +20,18 @@ const argv = yargs
 
 // console.log(argv);
 
-// encode and decode space in url
-var encodedAddress = encodeURIComponent(argv.address);
-var decodedAddress = decodeURIComponent();
-
-request(
-    {
-        url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
-        json: true
-    },
-    (error, response, body) => {
-        if(error) {
-            console.log(error);
-        }else {
-            if (body.status === 'OK') {
-                // console.log(JSON.stringify(body, undefined, 2));
-                // console.log(JSON.stringify(response, undefined,2));
-                console.log(`Place: ${body.results[0].address_components[0].long_name}`);
-                console.log(`Place: ${body.results[0].address_components[1].long_name}`);
-                console.log(`Place: ${body.results[0].address_components[2].long_name}`);
-                console.log(`Longitude: ${body.results[0].geometry.location.lng}`);
-                console.log(`Latitude: ${body.results[0].geometry.location.lat}`)
+geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+    if(errorMessage) {
+        console.log(errorMessage);
+    }else {
+        var latitude = results.latitude;
+        var longitude = results.longitude;
+        weather.getWeather({latitude, longitude}, (errorMessage, weatherResults) => {
+            if(errorMessage) {
+                console.log(errorMessage);
             }else {
-                console.log('unable to find the address');
+                console.log(JSON.stringify(weatherResults, null, 2));
             }
-        }
+        });
     }
-);
+});
