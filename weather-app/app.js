@@ -20,18 +20,17 @@ const argv = yargs
 
 // console.log(argv);
 
-geocode.geocodeAddress(argv.address, (errorMessage, results) => {
-    if(errorMessage) {
-        console.log(errorMessage);
-    }else {
-        var latitude = results.latitude;
-        var longitude = results.longitude;
-        weather.getWeather({latitude, longitude}, (errorMessage, weatherResults) => {
-            if(errorMessage) {
-                console.log(errorMessage);
-            }else {
+geocode.geocodeAddress(argv.address)
+.then((results) => {
+    var latitude = results.latitude;
+    var longitude = results.longitude;
+    weather.getWeather({latitude, longitude})
+        .then(
+            (weatherResults) => {
                 console.log(JSON.stringify(weatherResults, null, 2));
             }
-        });
-    }
+        );
+})
+.catch((errorMessage) => {
+    console.log(errorMessage);
 });
