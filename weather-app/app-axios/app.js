@@ -1,5 +1,5 @@
 // weather app with axios module
-// node app-axios/app.js -a=mysuru
+// node app-axios/server.js -a=mysuru
 console.log('Starting app...');
 
 const yargs = require('yargs');
