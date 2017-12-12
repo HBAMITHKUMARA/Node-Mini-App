@@ -1,0 +1,14 @@
+{
+  "name": "node-testing",
+  "version": "1.0.0",
+  "description": "learning to write test cases for node app",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha **/*.test.js"
+  },
+  "author": "HBAMITHKUMARA",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^4.0.1"
+  }
+}
