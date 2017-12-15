@@ -9,6 +9,6 @@
   "author": "HBAMITHKUMARA",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^3.0.0-rc0"
+    "mongodb": "^2.2.19"
   }
 }
