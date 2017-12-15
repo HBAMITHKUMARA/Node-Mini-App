@@ -9,9 +9,9 @@ MongoClient.connect('mongodb://localhost:27017/todo-app', (err, db) => {
     }
     console.log('connected to mongoDB server');
 
-    // fetch all documents
     let col_todos = db.collection('todos');
 
+    // fetch all documents
     col_todos.find().toArray().then((docs) => {
         console.log('todos');
         console.log(JSON.stringify(docs, undefined, 2));

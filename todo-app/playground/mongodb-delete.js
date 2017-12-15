@@ -9,6 +9,12 @@ MongoClient.connect('mongodb://localhost:27017/todo-app', (err, db) => {
     }
     console.log('connected to mongoDB server');
 
+    let col_todos = db.collection('todos');
+
+    col_todos.deleteMany({text: 'something to do'}).then((result) => {
+        console.log(`result:    ${result}`);
+    });
+
     db.close();
 
 });
