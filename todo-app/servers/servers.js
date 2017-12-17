@@ -9,11 +9,11 @@ let {Todo} = require('./models/todo');
 let {User} = require('./models/user');
 
 let app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
-    console.log(req.body);
     let todo = new Todo({
         text: req.body.text
     });
@@ -46,9 +46,27 @@ app.get('/todos/:id', (req, res) => {
         if(!todo) {
             return res.status(404).send({error: 'id not found'});
         }
-        res.send(todo);
+        res.send({todo});
     }, (err) => {
-        res.status(400).send(err);
+        res.status(400).send({});
+    });
+});
+
+app.delete('/todos/:id', (req, res) => {
+    let id = req.params.id;
+
+    let isValid = ObjectId.isValid(id);
+    if(!isValid) {
+        return res.status(404).send({error: 'invalid id'});
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if(!todo) {
+            return res.status(404).send({error: 'id not found'});
+        }
+        res.send({todo});
+    }).catch((err) => {
+        res.status(400).send({});
     });
 });
 
@@ -59,8 +77,8 @@ app.get('/todos/:id', (req, res) => {
 
 
 
-app.listen(3000, () => {
-    console.log('server is up and listening to port 3000')
+app.listen(port, () => {
+    console.log(`Started up at port ${port}`);
 });
 
 module.exports = {
