@@ -46,7 +46,7 @@ app.get('/todos/:id', (req, res) => {
         if(!todo) {
             return res.status(404).send({error: 'id not found'});
         }
-        res.send(todo);
+        res.send({todo});
     }, (err) => {
         res.status(400).send(err);
     });
