@@ -110,10 +110,16 @@ app.post('/users', (req, res) => {
     let user = new User(body);
 
     user.save()
-        .then((docs) => {
-            res.send(docs);
+        .then(() => {
+            console.log('damn1');
+            return user.generateAuthToken();
+        })
+        .then((token) => {
+            console.log('damn2');
+            res.header('x-auth', token).send(user);
         })
         .catch((err) => {
+            console.log('damn3');
             res.status(400).send(err);
         });
 });
