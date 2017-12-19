@@ -3,10 +3,9 @@ console.log('Starting hashing...');
 const {SHA256} = require('crypto-js');
 const bcrypt = require('bcryptjs');
 
-let message = 'hbamithkumara';
-let hash = SHA256(message).toString();
-
-console.log('hbamithkumara: ', hash);
+// let message = 'hbamithkumara';
+// let hash = SHA256(message).toString();
+// console.log('hbamithkumara: ', hash);
 
 password = 'testabc1'
 
