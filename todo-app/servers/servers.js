@@ -5,11 +5,12 @@ require('./config/config');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
-const {ObjectId} = require('mongodb');
+const {ObjectID} = require('mongodb');
 
 let {mongoose} = require('./db/mongoose');
 let {Todo} = require('./models/todo');
 let {User} = require('./models/user');
+let {authenticate} = require('./middleware/authenticate');
 
 let app = express();
 const port = process.env.PORT;
@@ -40,7 +41,7 @@ app.get('/todos', (req, res) => {
 app.get('/todos/:id', (req, res) => {
     let id = req.params.id;
 
-    let isValid = ObjectId.isValid(id);
+    let isValid = ObjectID.isValid(id);
     if(!isValid) {
         return res.status(404).send({error: 'invalid id'});
     }
@@ -58,7 +59,7 @@ app.get('/todos/:id', (req, res) => {
 app.delete('/todos/:id', (req, res) => {
     let id = req.params.id;
 
-    let isValid = ObjectId.isValid(id);
+    let isValid = ObjectID.isValid(id);
     if(!isValid) {
         return res.status(404).send({error: 'invalid id'});
     }
@@ -78,7 +79,7 @@ app.patch('/todos/:id', (req, res) =>{
     let id = req.params.id;
     let body = _.pick(req.body, ['text', 'completed']);
 
-    let isValid = ObjectId.isValid(id);
+    let isValid = ObjectID.isValid(id);
     if(!isValid) {
         return res.status(404).send({error: 'invalid id'});
     }
@@ -111,17 +112,18 @@ app.post('/users', (req, res) => {
 
     user.save()
         .then(() => {
-            console.log('damn1');
             return user.generateAuthToken();
         })
         .then((token) => {
-            console.log('damn2');
             res.header('x-auth', token).send(user);
         })
         .catch((err) => {
-            console.log('damn3');
             res.status(400).send(err);
         });
+});
+
+app.get('/users/me', authenticate,(req, res) => {
+    res.send(req.user);
 });
 
 
