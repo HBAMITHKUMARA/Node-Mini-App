@@ -15,3 +15,8 @@ let person = {
 };
 let {name} = person;
 console.log('name:  ', name);
+
+const path = require('path');
+// console.log('path', path);
+console.log('path-join plain method', __dirname + '/../hello-world');
+console.log('path-join using node path module', path.join(__dirname +  '/../hello-world'));
