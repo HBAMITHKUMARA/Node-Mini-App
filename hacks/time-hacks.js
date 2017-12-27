@@ -18,5 +18,10 @@ console.log(date.format('MMM YYYY'));
 console.log(date.format('MMM YYYY DD'));
 
 
-date.add(100, 'year');
+date.add(7, 'days');
 console.log(date.format('MMM YYYY DD'));
+
+date.add(2, 'years').subtract(1, 'year');
+console.log(date.format('MMM YYYY DD'));
+
+console.log(date.format('h:mm a'));
