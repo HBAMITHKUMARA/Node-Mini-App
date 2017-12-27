@@ -24,11 +24,12 @@ describe('generateLocationMessage', () => {
         let from = 'ami';
         let latitude = 1;
         let longitude = 2;
+        let url =`https://www.google.com/maps?q=${latitude},${longitude}`;
         let res = generateLocationMessage(from, latitude, longitude);
         expect(typeof res.createdAt).toBe('number');
         expect(res).toMatchObject({
             from,
-            url: `https://www.google.com/maps?q=${latitude},${longitude}`
+            url
         });
         done();
     });
