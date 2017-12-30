@@ -75,8 +75,25 @@ const getStatus = (id) => {
     });
 };
 
-getStatus(1).then((user) => {
-    console.log(user);
+getStatus(1).then((status) => {
+    console.log(status);
+}).catch((err) => {
+    console.log(err);
+});
+
+// async and await
+const getStatusAsync = async (id) => {
+    const user = await getUser(id);
+    const grades = await getGrades(user.schoolId);
+    let average = 0;
+    if(grades.length > 0) {
+        average = grades.map((grade) => grade.grade).reduce((a,b) => (a + b)/grades.length);
+    }
+    return `${user.name} has ${average} in the class`;
+};
+
+getStatusAsync(1).then((status) => {
+    console.log(status);
 }).catch((err) => {
     console.log(err);
 });
